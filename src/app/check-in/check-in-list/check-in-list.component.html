@@ -1,6 +1,7 @@
 <div class="panel">
     <div class="panel-title">Consultas</div>
-    <div class="panel-content">
+
+    <div class="panel-content" *ngIf="hospedes.length > 0">
         <table class="table">
             <thead>
                 <tr>
@@ -14,8 +15,8 @@
                 <tr *ngFor="let h of hospedes">
                     <td>{{h.nome}}</td>
                     <td>{{h.documento}}</td>
-                    <td>{{h.valorHospedagemAtual}}</td>
-                    <td>{{h.valorUltimaHospedagem}}</td>
+                    <td>R${{h.valorHospedagemAtual}}</td>
+                    <td>R${{h.valorUltimaHospedagem}}</td>
                 </tr>
             </tbody>
         </table>
@@ -27,4 +28,6 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="hospedes.length === 0">Nenhum resultado encontrado</div>
 </div>

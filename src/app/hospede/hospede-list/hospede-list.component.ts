@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { HospedeService } from '../hospede.service';
 import { Observable } from 'rxjs';
+import { Hospede } from '../hospede';
 
 @Component({
   selector: 'app-hospede-list',

@@ -1,7 +1,7 @@
 <div class="panel">
     <div class="panel-title">Hospedes Cadastrados</div>
-    <div class="panel-content">
-
+    
+    <div class="panel-content" *ngIf="hospedes.length > 0">
         <table class="table">
             <thead>
                 <tr>
@@ -17,7 +17,7 @@
                     <td>{{h.documento}}</td>
                     <td>{{h.telefone}}</td>
                     <td class="table-acoes" style="text-align: center">
-                        <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn" (click)="editarHospede(h)"><i class="fas fa-pencil-alt"></i></button>
                         <button class="btn btn-danger" (click)="deleteHospede(h.id)"><i class="far fa-trash-alt"></i></button>
                     </td>
                 </tr>
@@ -30,6 +30,7 @@
                 <button type="submit" class="btn">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
-
     </div>
+
+    <div *ngIf="hospedes.length === 0">Nenhum resultado encontrado</div>
 </div>
