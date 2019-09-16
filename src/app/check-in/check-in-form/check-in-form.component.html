@@ -1,0 +1,97 @@
+<h1>Check-in</h1>
+<button class="btn" routerLink="/check-in"><i class="fas fa-arrow-left"></i> Voltar</button>
+<div class="panel">
+    <div class="panel-title">Novo check in</div>
+    <div class="panel-content">
+        <form [formGroup]="checkInForm">
+            <div class="row">
+                <div class="column">
+                    <label for="data-hora-entrada">Data/hora de entrada</label>
+                    <input id="data-hora-entrada" formControlName="dataEntrada" max="9999-12-31T00:00" 
+                    type="datetime-local" [ngClass]="{ 'is-invalid' : submitted && form.dataEntrada.errors }"/>
+                    <div *ngIf="submitted && form.dataEntrada.errors" class="validation-message">
+                        Campo obrigatório
+                    </div>
+                </div>
+
+                <div class="column">
+                    <label for="data-hora-saida">Data/hora de saída</label>
+                    <input id="data-hora-saida" formControlName="dataSaida" 
+                    max="9999-12-31T00:00" type="datetime-local"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="hospede">Pessoa</label>
+                    <div *ngIf="hospedeSelecionado === null">
+                        <input id="hospede" type="text" class="pessoa-search" formControlName="hospede" [ngClass]="{ 'is-invalid' : (submitted || submittedHospede) && form.hospede.errors }"/>
+                        <button (click)="searchHospede('search-hospede-modal') && closeModal('search-hospede-modal')" class="btn" style="margin: 0 5px;"><i class="fas fa-search"></i></button>
+                        <div *ngIf="(submitted || submittedHospede) && form.hospede.errors" class="validation-message">
+                            Campo obrigatório
+                            <!-- <div *ngIf="!form.hospede.errors && hospedeSelecionado === null">Selecione uma hospede</div> -->
+                        </div>
+                    </div>
+
+                    <div *ngIf="hospedeSelecionado !== null">
+                        <input id="hospede" type="text" class="pessoa-search" value="{{hospedeSelecionado.nome}}" disabled/>
+                        <button (click)="cancelarHospedeSelecionado()" class="btn btn-danger" style="margin: 0 5px;"><i class="fas fa-times"></i></button>
+                    </div>
+
+                </div>
+
+                <div class="column">
+
+                    <div class="checkbox">
+                        <input type="checkbox" id="input_check" formControlName="adicionalVeiculo" name="possui-veiculo">
+                        <label for="input_check">Possui veículo</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <button type="submit" class="btn" (click)="onSubmit()">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-modal id="search-hospede-modal">
+    <h1>Hospedes com nome "{{checkInForm.value.hospede}}"</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Documento</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-acoes" *ngFor="let h of hospedes">
+                <td>{{h.nome}}</td>
+                <td>{{h.documento}}</td>
+                <td>{{h.telefone}}</td>
+                <td style="text-align: center">
+                    <button class="btn" (click)="selecionarHospede(h)"><i class="fas fa-pencil-alt" ></i> Selecionar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal-footer">
+        <button class="btn" (click)="cadastrarHospede('hospede-nao-cadastrado');">Cadastrar novo</button>
+        <button class="btn btn-danger" (click)="closeModal('search-hospede-modal');">Close</button>
+    </div>
+</app-modal>
+
+<app-modal id="hospede-nao-cadastrado">
+    <h1>Aviso!</h1>
+    <p>Hospede <b>{{checkInForm.value.hospede}}</b> não cadastrado, deseja cadastrar?</p>
+
+    <div class="modal-buttons">
+        <button class="btn" (click)="cadastrarHospede('hospede-nao-cadastrado');">Sim</button>
+        <button class="btn btn-danger" (click)="closeModal('hospede-nao-cadastrado');">Não</button>
+    </div>
+</app-modal>
+

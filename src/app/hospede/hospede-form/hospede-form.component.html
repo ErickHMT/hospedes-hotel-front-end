@@ -1,0 +1,41 @@
+<h1>Hospedes</h1>
+<button class="btn" routerLink="/check-in"><i class="fas fa-arrow-left"></i> Voltar</button>
+<div class="panel">
+    <div class="panel-title">Novo Hospede</div>
+    <div class="panel-content">
+        <form [formGroup]="hospedeForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="column">
+                    <label for="nome">Nome</label>
+                    <input id="nome" formControlName="nome" type="text" [ngClass]="{ 'is-invalid' : submitted && form.nome.errors }" />
+                    <div *ngIf="submitted && form.nome.errors" class="validation-message">
+                        Campo obrigatório
+                    </div>
+                </div>
+                <div class="column">
+                    <label for="documento">Documento</label>
+                    <input id="documento" formControlName="documento" type="text" [ngClass]="{ 'is-invalid' : submitted && form.documento.errors }" />
+                    <div *ngIf="submitted && form.documento.errors" class="validation-message">
+                        Campo obrigatório
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="telefone">Telefone</label>
+                    <input id="telefone" formControlName="telefone" type="text" appPhoneMask  [ngClass]="{ 'is-invalid' : submitted && form.telefone.errors }" />
+                    <div *ngIf="submitted && form.telefone.errors" class="validation-message">
+                        Campo obrigatório
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <button type="submit" class="btn">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-hospede-list [events]="atualizarHospedes.asObservable()"></app-hospede-list>
