@@ -12,15 +12,15 @@ export class CheckInService {
 
     constructor(private http: HttpClient) { }
 
-    buscarTodos(): Observable<CheckIn[]> {
-        return this.http
-            .get<CheckIn[]>(`${this.URL}/check-in`);
-    }
+    // buscarTodos(): Observable<CheckIn[]> {
+    //     return this.http
+    //         .get<CheckIn[]>(`${this.URL}/check-in`);
+    // }
 
-    buscarPeloId(id: number): Observable<CheckIn> {
-        return this.http
-            .get<CheckIn>(`${this.URL}/check-in/${id}`);
-    }
+    // buscarPeloId(id: number): Observable<CheckIn> {
+    //     return this.http
+    //         .get<CheckIn>(`${this.URL}/check-in/${id}`);
+    // }
 
     salvar(checkin: CheckIn): Observable<CheckIn> {
 
@@ -37,10 +37,5 @@ export class CheckInService {
             return this.http
                 .post<CheckIn>(`${this.URL}/check-in`, JSON.stringify(checkin), httpOptions);
         }
-    }
-
-    delete(id: number): Observable<any> {
-        return this.http
-            .delete(`${this.URL}/check-in/${id}`);
     }
 }

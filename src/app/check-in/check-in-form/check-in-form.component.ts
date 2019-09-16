@@ -50,7 +50,6 @@ export class CheckInFormComponent implements OnInit {
 
     const nomeHospede = this.checkInForm.value.hospede;
 
-    // this.hospedeService.findAll().subscribe(data => {
     this.hospedeService.findByName(nomeHospede).subscribe(data => {
       this.hospedes = data;
 

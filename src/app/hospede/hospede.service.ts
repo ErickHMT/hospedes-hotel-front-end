@@ -11,6 +11,12 @@ export class HospedeService {
 
     constructor(private http: HttpClient) { }
 
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
+
     findAll(): Observable<Hospede[]> {
         return this.http
             .get<Hospede[]>(`${this.URL}/hospedes`);
@@ -26,20 +32,18 @@ export class HospedeService {
             });
     }
 
+    findByFiltro(filter: any): Observable<Hospede[]> {
+        return this.http
+            .post<Hospede[]>(`${this.URL}/hospedes/filtro`, JSON.stringify(filter), this.httpOptions);
+    }
+
     salvar(hospede: Hospede): Observable<Hospede> {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        };
-
         if (hospede.id) {
             return this.http
-                .put<Hospede>(`${this.URL}/hospedes`, JSON.stringify(hospede), httpOptions);
+                .put<Hospede>(`${this.URL}/hospedes`, JSON.stringify(hospede), this.httpOptions);
         } else {
             return this.http
-                .post<Hospede>(`${this.URL}/hospedes`, JSON.stringify(hospede), httpOptions);
+                .post<Hospede>(`${this.URL}/hospedes`, JSON.stringify(hospede), this.httpOptions);
         }
     }
 

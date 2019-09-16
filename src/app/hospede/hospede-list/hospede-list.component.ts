@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 export class HospedeListComponent implements OnInit {
 
   hospedes = [];
-  // private eventsSubscription: any;
   @Input() events: Observable<void>;
 
   constructor(private hospedeService: HospedeService) { }

@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+
+import { HospedeService } from 'src/app/hospede/hospede.service';
 
 @Component({
   selector: 'app-check-in-list',
   templateUrl: './check-in-list.component.html',
   styleUrls: ['./check-in-list.component.sass']
 })
-export class CheckInListComponent implements OnInit {
-  filtroCheckInForm = new FormGroup({
-    hospedes: new FormControl(''),
-    // hospedesPassados: new FormControl(''),
-  });
+export class CheckInListComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  @Input() hospedesList: string[];
+  hospedes = [];
+
+  constructor(private hospedeService: HospedeService) { }
 
   ngOnInit() {
+    // Inicialmente filtra por hóspedes presentes
+    this.hospedeService.findByFiltro({hospedePresente: true})
+    .subscribe(data => {
+      this.hospedes = data;
+    });
   }
 
-  filtarResultados() {
-    console.warn('filtro: ', this.filtroCheckInForm.value.hospedes);
+  ngOnChanges() {
+    this.hospedes = this.hospedesList;
   }
-
 }

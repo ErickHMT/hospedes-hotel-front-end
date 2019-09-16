@@ -7,28 +7,37 @@
     <div class="panel-content">
         <form [formGroup]="checkInFilter">
             <div class="row">
-                <div class="column">
-                    <label for="nome">Nome</label>
-                    <input id="nome" formControlName="nome" type="text"/>
-                </div>
+                <label for="nome">Nome</label>
+                <input id="nome" formControlName="nome" type="text"/>
+            </div>
+
+            <div class="row">
                 <div class="column">
                     <label for="documento">Documento</label>
                     <input id="documento" formControlName="documento" type="text"/>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="column">
                     <label for="telefone">Telefone</label>
                     <input id="telefone" formControlName="telefone" type="text" appPhoneMask />
                 </div>
             </div>
 
+            <div class="row">
+                <label>
+                    <input type="radio" [value]=true formControlName="hospedePresente">
+                    <span>Pessoas ainda presentes</span>
+                </label>
+                <label>
+                    <input type="radio" [value]=false formControlName="hospedePresente">
+                    <span>Pessoas que já deixaram o hotel</span>
+                </label>
+            </div>
+
             <div class="panel-footer">
-                <button type="submit" class="btn">Filtrar</button>
+                <button type="submit" class="btn" (click)="filter()">Filtrar</button>
             </div>
         </form>
     </div>
 </div>
 
-<app-check-in-list></app-check-in-list>
+<app-check-in-list [hospedesList]="hospedes"></app-check-in-list>

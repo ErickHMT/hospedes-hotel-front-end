@@ -1,29 +1,22 @@
 <div class="panel">
     <div class="panel-title">Consultas</div>
     <div class="panel-content">
-
-
         <table class="table">
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Documento</th>
-                    <th>Valor gasto (R$)</th>
+                    <th>Valor Hospedagem Atual(R$)</th>
+                    <th>Valor Hospedagem Anterior(R$)</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Peter</td>
-                    <td>123456</td>
-                    <td>R$ 00.00,00</td>
+            <tbody>                
+                <tr *ngFor="let h of hospedes">
+                    <td>{{h.nome}}</td>
+                    <td>{{h.documento}}</td>
+                    <td>{{h.valorHospedagemAtual}}</td>
+                    <td>{{h.valorUltimaHospedagem}}</td>
                 </tr>
-                
-                <!-- <tr *ngFor="let p of products">
-                    <td>{{p.id}}</td>
-                    <td>{{p.title}}</td>
-                    <td>{{p.price}}</td>
-                    <td>{{p.stock}}</td>
-                </tr> -->
             </tbody>
         </table>
 
